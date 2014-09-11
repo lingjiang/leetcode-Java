@@ -4,12 +4,9 @@ public class Solution {
             return 0;
             
         int len = 1;
-        int pre = A[0];
         for(int i = 1; i < A.length; i++){
-            if(A[i] != pre){
-                A[len] = A[i];
-                pre = A[i];
-                len++;
+            if(A[i] != A[len - 1]){
+                A[len++] = A[i];
             }
         }
         return len;
