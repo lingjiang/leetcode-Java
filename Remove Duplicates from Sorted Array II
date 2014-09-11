@@ -2,14 +2,16 @@ public class Solution {
     public int removeDuplicates(int[] A) {
         if(A == null || A.length == 0)
             return 0;
-            
+        
         int len = 1;
-        int pre = A[0];
+        boolean dup = false;
         for(int i = 1; i < A.length; i++){
-            if(A[i] != pre){
-                A[len] = A[i];
-                pre = A[i];
-                len++;
+            if(A[i] != A[len - 1]){
+                A[len++] = A[i];
+                dup = false;
+            }else if(!dup){
+                A[len++] = A[i];
+                dup = true;
             }
         }
         return len;
