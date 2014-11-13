@@ -1,44 +1,13 @@
 public class Solution {
     public int maxProduct(int[] A) {
-        if(A == null || A.length == 0)
-            return 0;
-            
-        int fordward = maxProduct(A, 0, 1);
-        int backward = maxProduct(A, A.length - 1, -1);
-        return Math.max(fordward, backward);
-    }
-    
-    public int maxProduct(int[] A, int index, int step){
-        int max = Integer.MIN_VALUE;
-        int cur = 0;
-        int neg = 0;
-        while(index >= 0 && index < A.length){
-            if(A[index] != 0){
-                if(cur != 0)
-                    cur *= A[index];
-                else
-                    cur = A[index];
-                max = Math.max(max, cur);
-                if(A[index] < 0){
-                    if(neg != 0){
-                        neg = 0;
-                    }else{
-                        neg = cur;
-                    }
-                }
-            }else{
-                max = Math.max(max, 0);
-                if(neg != 0 && cur != neg){
-                    max = Math.max(max, cur / neg);
-                }
-                cur = 0;
-                neg = 0;
-            }
-            index += step;
+        assert A.length > 0;
+        int max = A[0], min = A[0], maxAns = A[0];
+        for(int i = 1; i < A.length; i++){
+            int mx = max, mn = min;
+            max = Math.max(Math.max(mx * A[i], A[i]), mn * A[i]);
+            min = Math.min(Math.min(mx * A[i], A[i]), mn * A[i]);
+            maxAns = Math.max(max, maxAns);
         }
-        if(neg != 0 && cur != neg){
-            max = Math.max(max, cur / neg);
-        }
-        return max;
+        return maxAns;
     }
 }
