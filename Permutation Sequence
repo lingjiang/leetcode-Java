@@ -1,0 +1,30 @@
+public class Solution {
+    public String getPermutation(int n, int k) {
+        assert n > 0 && n < 10;
+        
+        int fac = factorial(n);
+        assert k > 0 && k <= fac;
+        
+        List<Integer> list = new LinkedList<Integer>();
+        for(int i = 1; i <= n; i++)
+            list.add(i);
+        StringBuilder sb = new StringBuilder();
+        k--;
+        for(int i = n; i > 0; i--){
+            fac /= i;
+            int t = k / fac;
+            sb.append(list.get(t));
+            list.remove(t);
+            k %= fac;
+        }
+        return sb.toString();
+    }
+    
+    private int factorial(int n){
+        int fac = 1;
+        for(int i = 1; i <= n; i++){
+            fac *= i;
+        }
+        return fac;
+    }
+}
