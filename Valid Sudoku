@@ -1,0 +1,47 @@
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        char[] num = new char[9];
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                num[j] = board[i][j];
+            }
+            boolean valid = check(num);
+            if(!valid)
+                return false;
+        }
+        
+        for(int j = 0; j < 9; j++){
+            for(int i = 0; i < 9; i++){
+                num[i] = board[i][j];
+            }
+            boolean valid = check(num);
+            if(!valid)
+                return false;
+        }
+        
+        for(int i = 0; i < 9; i += 3){
+            for(int j = 0; j < 9; j += 3){
+                for(int k = 0; k < 9; k++){
+                    num[k] = board[i + k / 3][j + k % 3];
+                }
+                boolean valid = check(num);
+                if(!valid)
+                    return false;
+            }
+        }
+        return true;
+    }
+    
+    private boolean check(char[] num){
+        boolean[] occur = new boolean[9];
+        for(int i = 0; i < 9; i++){
+            if(num[i] != '.'){
+                int t = num[i] - '1';
+                if(occur[t])
+                    return false;
+                occur[t] = true;
+            }
+        }
+        return true;
+    }
+}
