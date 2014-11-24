@@ -1,24 +1,27 @@
 public class Solution {
     public int search(int[] A, int target) {
-        if(A == null || A.length == 0)
-            return -1;
-        
-        int left = 0;
-        int right = A.length - 1;
+        int left = 0, right = A.length - 1;
         while(left <= right){
             int mid = left + (right - left) / 2;
-            if(A[mid] == target){
+            if(A[mid] == target)
                 return mid;
-            }else if(A[left] <= A[mid]){
-                if(A[left] <= target && target < A[mid])
+            //从left到mid为递增，mid到right则相当于前者的补集
+            if(A[left] <= A[mid]){
+                // target 位于left和mid中间
+                if(A[left] <= target && target < A[mid]){
                     right = mid - 1;
-                else
+                }else{
                     left = mid + 1;
-            }else{
-                if(A[mid] < target && target <= A[right])
+                }
+            }
+            //从mid到right为递增，left到mid则相当于前者的补集
+            else{
+                //target 位于mid和right中间
+                if(A[mid] < target && target <= A[right]){
                     left = mid + 1;
-                else
+                }else{
                     right = mid - 1;
+                }
             }
         }
         return -1;
