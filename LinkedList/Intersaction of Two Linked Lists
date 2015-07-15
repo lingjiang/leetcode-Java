@@ -10,6 +10,31 @@
  * }
  */
 public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null)
+    	    return null;
+    	    
+        ListNode pa = headA;
+        ListNode pb = headB;
+    	while(pa != pb){
+    	    if(pa != null)
+    			pa = pa.next;
+    		else
+    			pa = headB;
+    		if(pb != null)
+    			pb = pb.next;
+    		else
+    			pb = headA;
+        }
+        if(pa == null)
+        	return null;
+        return pa;
+    }
+}
+
+
+/*
+public class Solution {
     private ListNode tail;
     
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
@@ -55,3 +80,4 @@ public class Solution {
         return prev;
     }
 }
+*/
