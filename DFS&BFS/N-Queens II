@@ -1,0 +1,30 @@
+public class Solution {
+
+    public int totalNQueens(int n) {
+        int[] cols = new int[n];
+        return DFS(cols, 0);
+    }
+    
+    private int DFS(int[] cols, int r){
+        if(r == cols.length){
+            return 1;
+        }
+        
+        int total = 0;
+        for(int c = 0; c < cols.length; c++){
+            if(isValid(cols, r, c)){
+                cols[r] = c;
+                total += DFS(cols, r + 1);
+            }
+        }
+        return total;
+    }
+    
+    private boolean isValid(int[] cols, int r, int c){
+        for(int i = 0; i < r; i++){
+            if(cols[i] == c || Math.abs(r - i) == Math.abs(c - cols[i]))
+                    return false;
+        }
+        return true;
+    }
+}
