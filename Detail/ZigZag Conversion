@@ -1,0 +1,26 @@
+public class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows <= 1)
+            return s;
+        StringBuilder sb = new StringBuilder();
+        int d1 = 2 * numRows - 2;
+        int d2 = 0;
+        for(int i = 0; i < numRows; i++){
+            int j = i;
+            boolean flag = true;
+            while(j < s.length()){
+                sb.append(s.charAt(j));
+                if(flag){
+                    j += d1 != 0 ? d1 : d2;
+                    flag = false;
+                }else{
+                    j += d2 != 0 ? d2 : d1; 
+                    flag = true;
+                }
+            }
+            d1 -= 2;
+            d2 += 2;
+        }
+        return sb.toString();
+    }
+}
