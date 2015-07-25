@@ -1,0 +1,33 @@
+public class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int len = nums1.length + nums2.length;
+        if(len % 2 != 0){
+            return findKthMin(nums1, nums2, 0, 0, (len + 1) / 2);
+        }else{
+            double a = findKthMin(nums1, nums2, 0, 0, len/2);
+            double b = findKthMin(nums1, nums2, 0, 0, len/2 + 1);
+            return (a + b) / 2;
+        }
+    }
+    
+    private int findKthMin(int[] A, int[] B, int sa, int sb, int k){
+        if(A.length - sa > B.length - sb)
+            return findKthMin(B, A, sb, sa, k);
+        if(A.length == sa)
+            return B[sb + k - 1];
+        if(k == 1)
+            return Math.min(A[sa], B[sb]);
+        
+        int la = Math.min(A.length - sa, k / 2);
+        int lb = k - la;
+        int pa = sa + la - 1;
+        int pb = sb + lb - 1;
+        if(A[pa] < B[pb]){
+            return findKthMin(A, B, pa + 1, sb, k - la);
+        }else if(A[pa] > B[pb]){
+            return findKthMin(A, B, sa, pb + 1, k - lb);
+        }else{
+            return A[pa];
+        }
+    }
+}
