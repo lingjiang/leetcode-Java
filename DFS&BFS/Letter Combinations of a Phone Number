@@ -1,0 +1,33 @@
+public class Solution {
+    char[][] map = {
+            {'a','b','c'},
+            {'d','e','f'},
+            {'g','h','i'},
+            {'j','k','l'},
+            {'m','n','o'},
+            {'p','q','r','s'},
+            {'t','u','v'},
+            {'w','x','y','z'}
+        }; 
+    public List<String> letterCombinations(String digits) {
+        if(digits == null || digits.length() == 0)
+            return Collections.emptyList();
+        List<String> rst = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        combine(digits, 0, rst, sb);
+        return rst;
+    }
+    
+    private void combine(String digits, int n, List<String> rst, StringBuilder sb){
+        if(n == digits.length()){
+            rst.add(sb.toString());
+            return;
+        }
+        char[] cs = map[digits.charAt(n) - '2'];
+        for(int i = 0; i < cs.length; i++){
+            sb.append(cs[i]);
+            combine(digits, n + 1, rst, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}
