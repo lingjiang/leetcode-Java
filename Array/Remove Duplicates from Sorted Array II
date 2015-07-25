@@ -12,3 +12,23 @@ public class Solution {
         return len;
     }
 }
+
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums == null || nums.length == 0)
+            return 0;
+        int len = 1;
+        boolean dup = false;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] != nums[len-1]){
+                nums[len++] = nums[i];
+                dup = false;
+            }else if(!dup){
+                nums[len++] = nums[i];
+                dup = true;
+            }
+        }
+        return len;
+    }
+}
+
