@@ -1,0 +1,35 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dummy = new ListNode(0);
+        ListNode prev = dummy, p = head;
+        while(isEnoughNodes(p, k)){
+            ListNode tmp = p;
+            for(int i = 0; i < k; i++){
+                ListNode next = p.next;
+                p.next = prev.next;
+                prev.next = p;
+                p = next;
+            }
+            prev = tmp;
+        }
+        prev.next = p;
+        return dummy.next;
+    }
+    
+    private boolean isEnoughNodes(ListNode p, int k){
+        int i = 0;
+        while(p != null && i < k){
+            p = p.next;
+            i++;
+        }
+        return i == k;
+    }
+}
