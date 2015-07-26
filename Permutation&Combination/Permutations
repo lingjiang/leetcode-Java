@@ -43,3 +43,34 @@ public class Solution {
         return list;
     }
 }
+
+//DFS
+public class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
+        List<Integer> list = new ArrayList<Integer>();
+        int[] visited = new int[nums.length];
+        DFS(nums, rst, list, visited);
+        return rst;
+    }
+    
+    private void DFS(int[] nums, List<List<Integer>> rst, List<Integer> list, int[] visited){
+        if(list.size() == nums.length){
+            rst.add(new ArrayList(list));
+            return;
+        }
+        Integer prev = null;
+        for(int i = 0; i < nums.length; i++){
+            if(visited[i] == 0 && (prev == null || nums[i] != prev)){
+                visited[i] = 1;
+                list.add(nums[i]);
+                DFS(nums, rst, list, visited);
+                list.remove(list.size() - 1);
+                visited[i] = 0;
+                prev = nums[i];
+            }
+        }
+    }
+
+}
