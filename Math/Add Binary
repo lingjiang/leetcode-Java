@@ -1,0 +1,21 @@
+public class Solution {
+    public String addBinary(String a, String b) {
+        String s = "";
+
+        int la = a.length();
+        int lb = b.length();
+        int carry = 0;
+        for(int i = 0; i < Math.max(la, lb); i++){
+            int ia = la - 1 - i;
+            int ib = lb - 1 - i;
+            int va = ia >= 0 ? a.charAt(ia) - '0' : 0;
+            int vb = ib >= 0 ? b.charAt(ib) - '0' : 0;
+            int sum = va + vb + carry;
+            s = String.valueOf(sum % 2) + s;
+            carry = sum / 2;
+        }
+        if(carry != 0)
+            s = "1" + s;
+        return s;
+    }
+}
