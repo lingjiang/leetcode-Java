@@ -1,0 +1,29 @@
+public class Solution {
+    public List<String> generateParenthesis(int n) {
+        if(n == 0)
+            return Collections.emptyList();
+        List<String> rst = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        DFS(n, 0, 0, rst, sb);
+        return rst;
+    }
+    
+    private void DFS(int n, int left, int right, List<String> rst, StringBuilder sb){
+        if(left == n && right == n){
+            rst.add(sb.toString());
+            return;
+        }
+        
+        if(left != n){
+            sb.append('(');
+            DFS(n, left + 1, right, rst, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        
+        if(left > right){
+            sb.append(')');
+            DFS(n, left, right + 1, rst, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}
