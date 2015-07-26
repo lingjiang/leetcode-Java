@@ -1,4 +1,35 @@
 public class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums == null || nums.length == 0 || nums.length == 1)
+            return;
+        int i = nums.length - 2;
+        while(i >= 0 && nums[i] >= nums[i+1])
+            i--;
+        Arrays.sort(nums, i + 1, nums.length);
+        if(i == -1)
+            return;
+        int j = upperBound(nums, i + 1, nums.length, nums[i]);
+        //swap
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+    
+    public int upperBound(int[] nums, int start, int end, int target){
+        while(start != end){
+            int mid = start + (end - start) / 2;
+            if(nums[mid] <= target)
+                start = mid + 1;
+            else
+                end = mid;
+        }
+        return start;
+    }
+}
+
+
+
+public class Solution {
     public void nextPermutation(int[] num) {
         assert num.length > 0;
         

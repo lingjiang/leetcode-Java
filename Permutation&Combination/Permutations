@@ -1,0 +1,45 @@
+public class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+        List<Integer> list = asList(nums);
+        while(list != null){
+            rst.add(list);
+            list = nextPermutation(nums);
+        }
+        return rst;
+    }
+    
+    private List<Integer> nextPermutation(int[] nums){
+        int i = nums.length - 2;
+        while(i >= 0 && nums[i] >= nums[i+1])
+            i--;
+        if(i == -1)
+            return null;
+        Arrays.sort(nums, i + 1, nums.length);
+        int j = upperBound(nums, i + 1, nums.length, nums[i]);
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+        return asList(nums);
+    }
+    
+    private int upperBound(int[] nums, int start, int end, int target){
+        while(start != end){
+            int mid = start + (end - start) / 2;
+            if(nums[mid] <= target)
+                start = mid + 1;
+            else
+                end = mid;
+        }
+        return start;
+    }
+    
+    private List<Integer> asList(int[] a){
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i = 0; i < a.length; i++){
+            list.add(a[i]);
+        }
+        return list;
+    }
+}
