@@ -1,0 +1,48 @@
+public class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
+        List<Integer> path = new ArrayList<Integer>();
+        DFS(n, k, 1, rst, path);
+        return rst;
+    }
+    
+    private void DFS(int n, int k, int index, List<List<Integer>> rst, List<Integer> path){
+        if(k == 0){
+            List<Integer> list = new ArrayList<Integer>(path);
+            rst.add(list);
+            return;
+        }
+            
+        for(int i = index; n - i + 1 >= k; i++){
+            path.add(i);
+            DFS(n, k - 1, i + 1, rst, path);
+            path.remove(path.size() - 1);
+        }
+    }
+}
+
+
+public class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
+        List<Integer> path = new ArrayList<Integer>();
+        DFS(n, k, rst, path);
+        return rst;
+    }
+    
+    private void DFS(int n, int k, List<List<Integer>> rst, List<Integer> path){
+        if(k == 0){
+            List<Integer> list = new ArrayList<Integer>(path);
+            //only to pass the oj
+            Collections.reverse(list);
+            rst.add(list);
+            return;
+        }
+            
+        for(int i = n; i >= k; i--){
+            path.add(i);
+            DFS(i - 1, k - 1, rst, path);
+            path.remove(path.size() - 1);
+        }
+    }
+}
