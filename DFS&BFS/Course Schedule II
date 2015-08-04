@@ -1,0 +1,36 @@
+public class Solution {
+	public int[] findOrder(int numCourses, int[][] prerequisites) {
+		List<Integer>[] graph = new ArrayList[numCourses];
+		int[] degree = new int[numCourses];
+
+		for (int i = 0; i < numCourses; i++) {
+			graph[i] = new ArrayList<Integer>();
+		}
+		for (int i = 0; i < prerequisites.length; i++) {
+			graph[prerequisites[i][1]].add(prerequisites[i][0]);
+			degree[prerequisites[i][0]]++;
+		}
+
+		int count = 0;
+		int[] rst = new int[numCourses];
+		Queue<Integer> queue = new LinkedList<Integer>();
+		for (int i = 0; i < numCourses; i++) {
+			if (degree[i] == 0)
+				queue.add(i);
+		}
+
+		while (!queue.isEmpty()) {
+			int e = queue.poll();
+			rst[count++] = e;
+			for (Integer j : graph[e]) {
+				degree[j]--;
+				if (degree[j] == 0)
+					queue.add(j);
+			}
+		}
+		if (count != numCourses)
+			return new int[0];
+		return rst;
+
+	}
+}
